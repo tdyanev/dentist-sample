@@ -1,0 +1,35 @@
+.calendar {
+    td, th {
+        //width: 14%;
+        text-align: center;
+    }
+
+    td {
+        //height: 2em;
+        padding: 1em;
+        position: relative;
+
+        a {
+            font-size: 2.5em;
+            text-decoration: none;
+        }
+
+        span.badge {
+            position: absolute;
+            right: 5%;
+            top: 5%;
+
+            //z-index: -1;
+        }
+
+        .today {
+          color: var(--bs-orange);
+        }
+
+    }
+
+    .next-month {
+        text-align: right;
+    }
+
+}

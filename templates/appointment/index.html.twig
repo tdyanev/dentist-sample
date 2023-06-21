@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appointment index{% endblock %}
+
+{% block body %}
+    {% if year|default %}
+    <h1>Appointments for {{ day }}/{{ month }}/{{ year }}</h1>
+    {% else %}
+    <h1>My appointments</h1>
+    {% endif %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.title }}</td>
+                <td>{{ appointment.date ? appointment.date|date('Y-m-d H:i') : '' }}</td>
+                {# <td>
+                    <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">show</a>
+                </td> #}
+                <td>
+                    {% if app.user.hasAppointment(appointment) %}
+                    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_appointment_new') }}">Create new</a>
+{% endblock %}

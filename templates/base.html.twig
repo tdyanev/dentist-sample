@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Dentist App: {% block title %}Welcome!{% endblock %}</title>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_welcome') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_calendar') }}">Calendar</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="mx-auto order-0">
+            <span class="navbar-brand mx-auto">{{ block('title') }}</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ms-auto">
+                {% if app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_my_appointment_index') }}">My appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+        {# TODO DRY!  #}
+        {% for flashMessage in app.flashes('warning') %}
+            <div class="alert alert-warning text-center">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% for flashMessage in app.flashes('success') %}
+            <div class="alert alert-success text-center">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        <main class="bg-light">
+            <div class="container pt-3 pb-3" id="app">
+                {% block body %}{% endblock %}
+            </div>
+        </main>
+    </body>
+</html>
