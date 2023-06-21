@@ -20,21 +20,11 @@ class AppointmentType extends AbstractType
                 'widget' => 'single_text',
                 'html5' => false,
                 'format' => 'yyyy-MM-dd HH:mm',
-                'invalid_message' => 'Date should be in this format yyyy-MM-dd HH:mm',
+                'invalid_message' => 'Date should be in this format: "yyyy-MM-dd HH:mm"',
 
                 // adds a class that can be selected in JavaScript
                 //'attr' => ['class' => 'js-datepicker'],
             ])
-
-
-            //])
-            // ->add('user', EntityType::class, [
-            //     'class' => User::class,
-            //     'expanded' => false,
-            //     'multiple' => false,
-            //     'choice_label' => 'email',
-            //     //'choice_filter' => 'isSelectable',
-            // ])
         ;
     }
 
