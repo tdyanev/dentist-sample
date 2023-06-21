@@ -44,23 +44,16 @@ class AppointmentRepository extends ServiceEntityRepository
     }
 
     public function findByMonth(int $year, int $month): array {
-
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT p
-            FROM App\Entity\Appointment p
-            WHERE p.date LIKE :date
-
-            ORDER BY p.date ASC'
-        )
-        ->setParameter('date', $year . '-' . $this->addZero($month) . '%')
-        ;
-
-        return $query->getResult();
+        return $this->findAppointmentsWhereDateLike($year . '-'
+        . $this->addZero($month) . '%');
     }
 
     public function findByDay(int $year, int $month, int $day): array {
+        return $this->findAppointmentsWhereDateLike($year . '-'
+        . $this->addZero($month) . '-' . $this->addZero($day) . '%');
+    }
+
+    private function findAppointmentsWhereDateLike(string $string): array {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
@@ -70,35 +63,8 @@ class AppointmentRepository extends ServiceEntityRepository
 
             ORDER BY p.date ASC'
         )
-        ->setParameter('date', $year . '-'
-            . $this->addZero($month) . '-' . $this->addZero($day) . '%')
-        ;
-
+        ->setParameter('date', $string);
+       
         return $query->getResult();
     }
-//    /**
-//     * @return Appointment[] Returns an array of Appointment objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Appointment
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }
-
